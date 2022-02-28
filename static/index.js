@@ -1,6 +1,15 @@
 const ws = new WebSocket(`ws://${window.location.host}/ws`);
 const start = { x: 0, y: 0 };
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('./sw.js').then(function () {
+    console.log('registration worked');
+  }).catch(function (error) {
+    console.log('registration failed : ');
+    console.log(error);
+  });
+}
+
 function callEndpoint(endpoint) {
   const xhr = new XMLHttpRequest();
   xhr.open("get", endpoint, true);
